@@ -2,14 +2,12 @@ const express = require('express'); // Sử dụng CommonJS
 const path = require('path');
 require('dotenv').config();
 console.log(">>> check env: ", process.env);
-
+const configViewEngine = require('./configs/viewEngine');
 const app = express();
 // const port = 3000;
 // const hostname = 'loaclhost';
 
-app.set('views', path.join(__dirname, 'views/'));
-app.set('view engine', 'ejs');
-
+configViewEngine(app);
 //config static
 app.use(express.static(path.join(__dirname, 'public')));
 
