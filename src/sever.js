@@ -1,10 +1,10 @@
 // Sử dụng CommonJS
-const express = require('express');
 require('dotenv').config();
+const express = require('express');
 console.log(">>> check env: ", process.env);
 const configViewEngine = require('./config/viewEngine');
 const webroute = require('./routes/web');
-const mysql = require('mysql2');
+const connection = require('./config/database');
 const app = express();
 // const port = 3000;
 // const hostname = 'loaclhost';
@@ -16,14 +16,7 @@ configViewEngine(app); // cấu hình qua file config
 // Route trang chủ
 app.use('/', webroute);
 
-// test conn
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3307, // nếu k port thì sẽ là 3306
-    user: 'root',
-    password: '123456',
-    database: 'hoidanit',
-});
+// test connnection
 connection.execute(
     'SELECT * FROM users u',
     function (err, results, fields) {
