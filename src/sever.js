@@ -9,6 +9,8 @@ const app = express();
 // const port = 3000;
 // const hostname = 'loaclhost';
 
+app.use(express.json()); // Used to parse JSON bodies
+app.use(express.urlencoded());
 
 configViewEngine(app); // cấu hình qua file config
 
