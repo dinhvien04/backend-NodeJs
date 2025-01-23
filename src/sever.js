@@ -1,7 +1,7 @@
 // Sử dụng CommonJS
 require('dotenv').config();
 const express = require('express');
-console.log(">>> check env: ", process.env);
+// console.log(">>> check env: ", process.env);
 const configViewEngine = require('./config/viewEngine');
 const webroute = require('./routes/web');
 const connection = require('./config/database');
@@ -28,6 +28,6 @@ connection.execute(
 
 
 // Lắng nghe yêu cầu
-app.listen(3000, () => {
-    console.log('Server đang chạy tại http://localhost:3000/');
+app.listen(8000, () => {
+    console.log('Server đang chạy tại http://localhost:8000/');
 });
