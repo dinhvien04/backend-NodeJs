@@ -1,3 +1,4 @@
+const e = require('express');
 const connection = require('../config/database');
 const getHome = (req, res) => {
     return res.render('home.ejs');
@@ -10,8 +11,25 @@ const getDinhVien = (req, res) => {
     res.render('sample.ejs');
 }
 const portCreateUser = (req, res) => {
-    console.log(">>req.body: ", req.body);
-    res.send('create user');
+    // console.log(req.body);
+
+
+    let email = req.body.Email;
+    let name = req.body.myname;
+    let city = req.body.city;
+
+    // console.log("email: ", email, "name: ", name, "city: ", city);
+    // res.send('create user');
+
+
+    connection.query(
+        'insert into users(email,name, city) values (?,?,?)', [email, name, city],
+        function (err, results) {
+            console.log(results);
+            res.send('create user succeed');
+        }
+    );
+
 }
 
 module.exports = {
