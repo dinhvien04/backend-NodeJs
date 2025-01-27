@@ -1,7 +1,10 @@
 const express = require('express');
 const connection = require('../config/database');
-const getHome = (req, res) => {
-    return res.render('home.ejs');
+const { getAllUser } = require('../services/CRUDServices');
+const getHome = async (req, res) => {
+    let results = await getAllUser();
+    return res.render('home.ejs', { listUsers: results });
+
 };
 const getABC = (req, res) => {
     res.send('Anh yeu em');
@@ -25,8 +28,6 @@ const portCreateUser = async (req, res) => {
     );
     console.log(results);
     res.send('create user succeed');
-
-
 }
 
 const getCreatePage = (req, res) => {

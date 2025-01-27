@@ -13,7 +13,8 @@
         <a href="/create">Create Users</a>
     </div>
     <div class="table-container">
-        <div class="title">List Users </div>
+        <%=JSON.stringify(listUsers) %>
+            <div class="title">List Users </div>
     </div>
     <table>
         <tr>
@@ -21,30 +22,47 @@
             <th>Email</th>
             <th>Name</th>
             <th>Ctiy</th>
+            <th>Actions</th>
         </tr>
         <tr>
             <td>Peter</td>
             <td>Griffin</td>
             <td>$100</td>
             <td>New York</td>
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
         </tr>
         <tr>
             <td>Lois</td>
             <td>Griffin</td>
             <td>$150</td>
             <td>San Francisco</td>
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
         </tr>
         <tr>
             <td>Joe</td>
             <td>Swanson</td>
             <td>$300</td>
             <td>Vietnam</td>
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
         </tr>
         <tr>
             <td>Cleveland</td>
             <td>Brown</td>
             <td>$250</td>
             <td>Japan</td>
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
         </tr>
     </table>
 </body>
