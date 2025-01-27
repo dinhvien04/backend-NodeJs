@@ -1,4 +1,4 @@
-const e = require('express');
+const express = require('express');
 const connection = require('../config/database');
 const getHome = (req, res) => {
     return res.render('home.ejs');
@@ -10,7 +10,7 @@ const getDinhVien = (req, res) => {
     res.set('Content-Type', 'text/html; charset=utf-8');
     res.render('sample.ejs');
 }
-const portCreateUser = (req, res) => {
+const portCreateUser = async (req, res) => {
     // console.log(req.body);
 
 
@@ -18,20 +18,21 @@ const portCreateUser = (req, res) => {
     let name = req.body.myname;
     let city = req.body.city;
 
-    // console.log("email: ", email, "name: ", name, "city: ", city);
-    // res.send('create user');
+    console.log("email: ", email, "name: ", name, "city: ", city);
 
-
-    connection.query(
-        'insert into users(email,name, city) values (?,?,?)', [email, name, city],
-        function (err, results) {
-            console.log(results);
-            res.send('create user succeed');
-        }
+    let [results, fields] = await connection.query(
+        'insert into users(email,name, city) values (?,?,?)', [email, name, city]
     );
+    console.log(results);
+    res.send('create user succeed');
+
 
 }
 
+const getCreatePage = (req, res) => {
+    res.render('create.ejs');
+}
+
 module.exports = {
-    getHome, getABC, getDinhVien, portCreateUser
+    getHome, getABC, getDinhVien, portCreateUser, getCreatePage
 }
