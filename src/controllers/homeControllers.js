@@ -34,6 +34,7 @@ const getCreatePage = (req, res) => {
     res.render('create.ejs');
 }
 const getUpatePage = (req, res) => {
+    console.log(req.params);
     res.render('edit.ejs');
 }
 
