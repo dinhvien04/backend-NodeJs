@@ -33,7 +33,10 @@ const portCreateUser = async (req, res) => {
 const getCreatePage = (req, res) => {
     res.render('create.ejs');
 }
+const getUpatePage = (req, res) => {
+    res.render('edit.ejs');
+}
 
 module.exports = {
-    getHome, getABC, getDinhVien, portCreateUser, getCreatePage
+    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage
 }
