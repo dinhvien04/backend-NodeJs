@@ -19,15 +19,17 @@
 
                 <div class="input-group">
                     <label>Email: </label>
-                    <input type="text" name="Email">
+                    <input type="email" name="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email hợp lệ (ví dụ: user@example.com)')"
+                        oninput="this.setCustomValidity('')">
                 </div>
                 <div class="input-group">
                     <label>Name: </label>
-                    <input type="text" name="myname">
+                    <input type="text" name="myname" required>
                 </div>
                 <div class="input-group">
-                    <label>city: </label>
-                    <input type="text" name="city">
+                    <label>City: </label>
+                    <input type="text" name="city" required>
                 </div>
                 <div>
                     <button class="btn"> Save </button>

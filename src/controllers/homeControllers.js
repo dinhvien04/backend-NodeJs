@@ -33,9 +33,14 @@ const portCreateUser = async (req, res) => {
 const getCreatePage = (req, res) => {
     res.render('create.ejs');
 }
-const getUpatePage = (req, res) => {
+const getUpatePage = async (req, res) => {
     console.log(req.params);
-    res.render('edit.ejs');
+    let [results, fields] = await connection.query('select * from users where id = ?', [req.params.id]);
+    console.log(results);
+
+    let user = results && results.length > 0 ? results[0] : null;
+
+    res.render('edit.ejs', { userEdit: user });
 }
 
 module.exports = {
