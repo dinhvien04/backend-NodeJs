@@ -1,6 +1,6 @@
 const express = require('express');
 const connection = require('../config/database');
-const { getAllUser, getUserById, updateUserById } = require('../services/CRUDServices');
+const { getAllUser, getUserById, updateUserById, deleteUserById } = require('../services/CRUDServices');
 const getHome = async (req, res) => {
     let results = await getAllUser();
     return res.render('home.ejs', { listUsers: results });
@@ -66,9 +66,14 @@ const portDeleteUser = async (req, res) => {
 
     res.render('delete.ejs', { userEdit: results });
 }
-const portRemoveUser = (req, res) => {
+const portRemoveUser = async (req, res) => {
+    const id = req.body.userId;
+    // let [results, fields] = await connection.query('delete from users where id = ?', [id]);
+    let results = await deleteUserById(id);
     res.send('remove user succeed');
+    // res.redirect('/');
 }
 module.exports = {
-    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage, postUpdateUser, portDeleteUser, portRemoveUser
+    getHome, getABC, getDinhVien, portCreateUser, getCreatePage,
+    getUpatePage, postUpdateUser, portDeleteUser, portRemoveUser
 }
