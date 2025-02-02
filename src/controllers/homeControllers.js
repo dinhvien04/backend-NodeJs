@@ -59,7 +59,16 @@ const postUpdateUser = async (req, res) => {
     res.send('update user succeed');
     res.redirect('/');
 }
+const portDeleteUser = async (req, res) => {
+    const userId = req.params.id;
 
+    let results = await getUserById(userId);
+
+    res.render('delete.ejs', { userEdit: results });
+}
+const portRemoveUser = (req, res) => {
+    res.send('remove user succeed');
+}
 module.exports = {
-    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage, postUpdateUser
+    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage, postUpdateUser, portDeleteUser, portRemoveUser
 }
