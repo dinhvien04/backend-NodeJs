@@ -1,6 +1,6 @@
 const express = require('express');
 const connection = require('../config/database');
-const { getAllUser } = require('../services/CRUDServices');
+const { getAllUser, getUserById, updateUserById } = require('../services/CRUDServices');
 const getHome = async (req, res) => {
     let results = await getAllUser();
     return res.render('home.ejs', { listUsers: results });
@@ -20,8 +20,9 @@ const portCreateUser = async (req, res) => {
     let email = req.body.Email;
     let name = req.body.myname;
     let city = req.body.city;
+    // let userId = req.body.userId;
 
-    console.log("email: ", email, "name: ", name, "city: ", city);
+    console.log("email: ", email, "name: ", name, "city: ", city, "id: ", userId);
 
     let [results, fields] = await connection.query(
         'insert into users(email,name, city) values (?,?,?)', [email, name, city]
@@ -34,15 +35,31 @@ const getCreatePage = (req, res) => {
     res.render('create.ejs');
 }
 const getUpatePage = async (req, res) => {
-    console.log(req.params);
-    let [results, fields] = await connection.query('select * from users where id = ?', [req.params.id]);
+    // console.log(req.params);
+    // let [results, fields] = await connection.query('select * from users where id = ?', [req.params.id]);
+    // console.log(results);
+    const userId = req.params.id;
+
+    let results = await getUserById(userId);
+
+    res.render('edit.ejs', { userEdit: results });
+}
+const postUpdateUser = async (req, res) => {
+
+    let userId = req.body.userId;
+    let email = req.body.email;
+    let name = req.body.myname;
+    let city = req.body.city;
+
+    // await updateUserById(userId, email, name, city);
+    let [results, fields] = await connection.query(
+        'update users set email = ?, name = ?, city = ? where id = ?', [email, name, city, userId]
+    );
     console.log(results);
-
-    let user = results && results.length > 0 ? results[0] : null;
-
-    res.render('edit.ejs', { userEdit: user });
+    res.send('update user succeed');
+    res.redirect('/');
 }
 
 module.exports = {
-    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage
+    getHome, getABC, getDinhVien, portCreateUser, getCreatePage, getUpatePage, postUpdateUser
 }
