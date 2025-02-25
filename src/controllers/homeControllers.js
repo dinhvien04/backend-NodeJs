@@ -20,15 +20,18 @@ const portCreateUser = async (req, res) => {
     let email = req.body.Email;
     let name = req.body.myname;
     let city = req.body.city;
-    // let userId = req.body.userId;
+    let userId = req.body.userId;
 
     console.log("email: ", email, "name: ", name, "city: ", city, "id: ", userId);
 
     let [results, fields] = await connection.query(
         'insert into users(email,name, city) values (?,?,?)', [email, name, city]
     );
-    console.log(results);
-    res.send('create user succeed');
+    // console.log(results);
+    res.send(`
+        <h2>Create user succeed</h2>
+        <button onclick="window.location.href='/'">Go to Home</button>
+        `);
 }
 
 const getCreatePage = (req, res) => {
@@ -55,9 +58,11 @@ const postUpdateUser = async (req, res) => {
     let [results, fields] = await connection.query(
         'update users set email = ?, name = ?, city = ? where id = ?', [email, name, city, userId]
     );
-    console.log(results);
-    res.send('update user succeed');
-    res.redirect('/');
+    // console.log(results);
+    res.send(`
+        <h2>Update user succeed</h2>
+        <button onclick="window.location.href='/'">Go to Home</button>
+        `);
 }
 const portDeleteUser = async (req, res) => {
     const userId = req.params.id;
@@ -70,8 +75,11 @@ const portRemoveUser = async (req, res) => {
     const id = req.body.userId;
     // let [results, fields] = await connection.query('delete from users where id = ?', [id]);
     let results = await deleteUserById(id);
-    res.send('remove user succeed');
-    // res.redirect('/');
+    res.send(`
+        <h2>Remove user succeed</h2>
+        <button onclick="window.location.href='/'">Go to Home</button>
+    `);;
+    // res.redirect('/');   
 }
 module.exports = {
     getHome, getABC, getDinhVien, portCreateUser, getCreatePage,
