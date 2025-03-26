@@ -19,6 +19,8 @@ configViewEngine(app); // cấu hình qua file config
 app.use('/', webroute);
 
 // test connnection
+
+// connection();
 // connection.execute(
 //     'SELECT * FROM users u',
 //     function (err, results, fields) {
@@ -27,9 +29,17 @@ app.use('/', webroute);
 //     }
 // );
 
+(async () => {
+    try {
+        await connection().then();
+        app.listen(8000, () => {
+            console.log('Server đang chạy tại http://localhost:8000/');
+        });
+
+    } catch (error) {
+        console.log(">>> error: ", error);
+    }
+})();
 
 
-// Lắng nghe yêu cầu
-app.listen(8000, () => {
-    console.log('Server đang chạy tại http://localhost:8000/');
-});
+// Lắng nghe yêu c
