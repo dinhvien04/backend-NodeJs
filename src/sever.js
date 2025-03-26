@@ -9,6 +9,10 @@ const app = express();
 // const port = 3000;
 // const hostname = 'loaclhost';
 const mongoose = require('mongoose');
+const Kitten = require('./models/Kitten');
+
+
+
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded());
 
@@ -29,11 +33,6 @@ app.use('/', webroute);
 //     }
 // );
 
-const kittySchema = new mongoose.Schema({
-    name: String
-});
-
-const Kitten = mongoose.model('Kitten', kittySchema);
 const silence = new Kitten({ name: 'Dinh Vien IT 45' });
 console.log(silence.name); // 'Silence'
 
