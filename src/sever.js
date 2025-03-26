@@ -8,7 +8,7 @@ const connection = require('./config/database');
 const app = express();
 // const port = 3000;
 // const hostname = 'loaclhost';
-
+const mongoose = require('mongoose');
 app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded());
 
@@ -28,6 +28,18 @@ app.use('/', webroute);
 //         console.log(fields); // fields contains extra meta data about results, if available
 //     }
 // );
+
+const kittySchema = new mongoose.Schema({
+    name: String
+});
+
+const Kitten = mongoose.model('Kitten', kittySchema);
+const silence = new Kitten({ name: 'Dinh Vien IT 45' });
+console.log(silence.name); // 'Silence'
+
+silence.save();
+
+
 
 (async () => {
     try {
