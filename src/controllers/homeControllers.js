@@ -1,8 +1,13 @@
 const express = require('express');
 const connection = require('../config/database');
 const { getAllUser, getUserById, updateUserById, deleteUserById } = require('../services/CRUDServices');
+
+
+const user = require('../models/user');
+
+
 const getHome = async (req, res) => {
-    let results = await getAllUser();
+    let results = [];
     return res.render('home.ejs', { listUsers: results });
 
 };
@@ -24,10 +29,15 @@ const portCreateUser = async (req, res) => {
 
     console.log("email: ", email, "name: ", name, "city: ", city, "id: ", userId);
 
-    let [results, fields] = await connection.query(
-        'insert into users(email,name, city) values (?,?,?)', [email, name, city]
-    );
+    // let [results, fields] = await connection.query(
+    //     'insert into users(email,name, city) values (?,?,?)', [email, name, city]
+    // );
     // console.log(results);
+    await user.create({
+        email: email,
+        name: name,
+        city: city
+    });
     res.send(`
         <h2>Create user succeed</h2>
         <button onclick="window.location.href='/'">Go to Home</button>
