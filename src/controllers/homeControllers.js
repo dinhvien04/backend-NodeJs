@@ -68,7 +68,7 @@ const postUpdateUser = async (req, res) => {
     // );
 
 
-    await user.updateOne({ _id: userId }, { email: email, name: name, city: city });
+    await user.updateOne({ _id: userId }, { email: email, name: name, city: city }); // nosql
     // console.log(results);
     res.send(`
         <h2>Update user succeed</h2>
@@ -78,14 +78,18 @@ const postUpdateUser = async (req, res) => {
 const portDeleteUser = async (req, res) => {
     const userId = req.params.id;
 
-    let results = await getUserById(userId);
+    // let results = await getUserById(userId);
+    let results = await user.findById(userId);
 
     res.render('delete.ejs', { userEdit: results });
 }
 const portRemoveUser = async (req, res) => {
     const id = req.body.userId;
     // let [results, fields] = await connection.query('delete from users where id = ?', [id]);
-    let results = await deleteUserById(id);
+    // let results = await deleteUserById(id);
+    let results = await user.deleteOne(
+        { _id: id }
+    );
     res.send(`
         <h2>Remove user succeed</h2>
         <button onclick="window.location.href='/'">Go to Home</button>
