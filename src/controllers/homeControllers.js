@@ -7,7 +7,7 @@ const user = require('../models/user');
 
 
 const getHome = async (req, res) => {
-    let results = await user.find({});
+    let results = await user.find({});  // lấy data từ nosql
     return res.render('home.ejs', { listUsers: results });
 
 };
@@ -52,9 +52,7 @@ const getUpatePage = async (req, res) => {
     // let [results, fields] = await connection.query('select * from users where id = ?', [req.params.id]);
     // console.log(results);
     const userId = req.params.id;
-
-    let results = await getUserById(userId);
-
+    let results = await user.findById(userId).exec();
     res.render('edit.ejs', { userEdit: results });
 }
 const postUpdateUser = async (req, res) => {
@@ -65,9 +63,12 @@ const postUpdateUser = async (req, res) => {
     let city = req.body.city;
 
     // await updateUserById(userId, email, name, city);
-    let [results, fields] = await connection.query(
-        'update users set email = ?, name = ?, city = ? where id = ?', [email, name, city, userId]
-    );
+    // let [results, fields] = await connection.query(
+    //     'update users set email = ?, name = ?, city = ? where id = ?', [email, name, city, userId]
+    // );
+
+
+    await user.updateOne({ _id: userId }, { email: email, name: name, city: city });
     // console.log(results);
     res.send(`
         <h2>Update user succeed</h2>
